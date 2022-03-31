@@ -1,5 +1,7 @@
 import React from "react";
 import TodoList from "./TodosList";
+import Header from "./Header"
+
 class TodoContainer extends React.Component {
     
     state = {
@@ -7,7 +9,7 @@ class TodoContainer extends React.Component {
           {
             id: 1,
             title: "Setup development environment",
-            completed: true
+            completed: false
           },
           {
             id: 2,
@@ -22,10 +24,22 @@ class TodoContainer extends React.Component {
         ]
        };
 
+       handleChange = id => {
+        this.setState({
+          todos: this.state.todos.map(todo => {
+            if (todo.id === id) {
+              todo.completed = !todo.completed;
+            }
+            return todo;
+          })
+        });
+      };
+
     render() {
         return (
            <div>
-              <TodoList todos={this.state.todos} />             
+              <Header />
+              <TodoList todos={this.state.todos} handleChangeProps={this.handleChange} />             
            </div>
         )
     }
